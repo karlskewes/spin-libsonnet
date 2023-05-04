@@ -30,7 +30,6 @@ build: ## Generate JSON manifests for `spin save`
 			echo "Building $${dir}"; \
 			cd "$${dir}"; \
 			for f in $$(find * -name '*.jsonnet'); do \
-				jsonnet "$${f}" > /dev/null || export failed=1; \
 				jsonnet \
 				  --create-output-dirs \
 				  --output-file "$(OUTPUT_DIR)/$${f%%.jsonnet}.json" \
@@ -44,10 +43,11 @@ build: ## Generate JSON manifests for `spin save`
 	fi
 
 .PHONY: test
-test: ## Test for formatting and linting errors
+test: ## Test for rendering, formatting and linting errors
 	$(JSONNET) --version
 	export failed=0; \
 	for f in $$(find * -name '*.jsonnet' -o -name '*.libsonnet'); do \
+		echo "Testing $${f}"; \
 		jsonnet "$${f}" > /dev/null || export failed=1; \
 		jsonnetfmt --test "$${f}" || export failed=1; \
 		jsonnet-lint "$${f}" || export failed=1; \
