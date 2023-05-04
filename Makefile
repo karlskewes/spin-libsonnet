@@ -1,7 +1,5 @@
 # spin-libsonnet
 
-JSONNET := jsonnet
-JSONNETFMT := jsonnetfmt
 OUTPUT_DIR := manifests
 
 .PHONY: all
@@ -23,8 +21,8 @@ dep:  ## Install dependencies
 
 .PHONY: build
 build: ## Generate JSON manifests for `spin save`
-	$(JSONNET) --version
-	export failed=0; \
+	@jsonnet --version
+	@export failed=0; \
 	for dir in $(shell find * -type d | \
 		grep -v '\(tests\|$(OUTPUT_DIR)\)'); do \
 			echo "Building $${dir}"; \
@@ -44,8 +42,8 @@ build: ## Generate JSON manifests for `spin save`
 
 .PHONY: test
 test: ## Test for rendering, formatting and linting errors
-	$(JSONNET) --version
-	export failed=0; \
+	@jsonnet --version
+	@export failed=0; \
 	for f in $$(find * -name '*.jsonnet' -o -name '*.libsonnet'); do \
 		echo "Testing $${f}"; \
 		jsonnet "$${f}" > /dev/null || export failed=1; \
