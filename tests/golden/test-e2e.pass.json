@@ -1,0 +1,29 @@
+{
+   "application-e2e": {
+      "cloudProviders": "kubernetes",
+      "email": "me@example.com",
+      "name": "e2e",
+      "user": "me@example.com"
+   },
+   "pipeline-e2e-deploy": {
+      "application": "e2e",
+      "keepWaitingPipelines": false,
+      "limitConcurrent": true,
+      "name": "deploy"
+   },
+   "project-end-to-end": {
+      "config": {
+         "applications": "[ ]e2e",
+         "clusters": [ ],
+         "pipelineConfigs": [
+            {
+               "application": "e2e",
+               "pipelineConfigId": "deploy"
+            }
+         ]
+      },
+      "email": "me@example.com",
+      "id": "end-to-end",
+      "name": "end-to-end"
+   }
+}
